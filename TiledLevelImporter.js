@@ -48,19 +48,18 @@ Crafty.c("TiledLevel", {
   },
   tiledLevel: function(levelURL, drawType) {
     $.getJSON(levelURL, __bind(function(level) {
-      var lLayers, layer, ts, tss, _i, _j, _len, _len2, _results;
+      var lLayers, layer, ts, tss, _i, _j, _len, _len2;
       lLayers = level.layers, tss = level.tilesets;
       drawType = drawType != null ? drawType : "Canvas";
       for (_i = 0, _len = tss.length; _i < _len; _i++) {
         ts = tss[_i];
         this.makeTiles(ts, drawType);
       }
-      _results = [];
       for (_j = 0, _len2 = lLayers.length; _j < _len2; _j++) {
         layer = lLayers[_j];
-        _results.push(this.makeLayer(layer));
+        this.makeLayer(layer);
       }
-      return _results;
+      return null;
     }, this));
     return this;
   },

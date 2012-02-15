@@ -37,5 +37,6 @@ Crafty.c "TiledLevel",
             drawType = drawType ? "Canvas"
             @makeTiles(ts, drawType) for ts in tss
             @makeLayer(layer) for layer in lLayers
+            return null
         return @
     init: -> @
