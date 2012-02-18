@@ -2,7 +2,7 @@
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
   Crafty.c("TiledLevel", {
     makeTiles: function(ts, drawType) {
-      var components, posx, posy, sMap, sName, tHeight, tName, tNum, tWidth, tsHeight, tsImage, tsProperties, tsWidth, xCount, yCount, _ref;
+      var components, posx, posy, sMap, sName, tHeight, tName, tNum, tWidth, tsHeight, tsImage, tsProperties, tsWidth, xCount, yCount;
       tsImage = ts.image, tNum = ts.firstgid, tsWidth = ts.imagewidth;
       tsHeight = ts.imageheight, tWidth = ts.tilewidth, tHeight = ts.tileheight;
       tsProperties = ts.tileproperties;
@@ -16,9 +16,14 @@
           tName = "tile" + tNum;
           sMap[sName] = [posx, posy];
           components = "2D, " + drawType + ", " + sName + ", MapTile";
-          if (((_ref = tsProperties[tNum - 1]) != null ? _ref["components"] : void 0) != null) {
-            components += ", " + tsProperties[tNum - 1]["components"];
+          if (tsProperties) {
+            if (tsProperties[tNum - 1]) {
+              if (tsProperties[tNum - 1]["components"]) {
+                components += ", " + tsProperties[tNum - 1]["components"];
+              }
+            }
           }
+          console.log(components);
           Crafty.c(tName, {
             comp: components,
             init: function() {

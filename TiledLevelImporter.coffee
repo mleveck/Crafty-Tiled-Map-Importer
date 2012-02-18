@@ -13,7 +13,11 @@ Crafty.c "TiledLevel",
                 tName = "tile#{tNum}"
                 sMap[sName] = [posx, posy]
                 components = "2D, #{drawType}, #{sName}, MapTile"
-                components += ", #{tsProperties[tNum - 1]["components"]}" if tsProperties[tNum - 1]?["components"]?
+                if tsProperties
+                    if tsProperties[tNum - 1]
+                        if tsProperties[tNum - 1]["components"]
+                            components += ", #{tsProperties[tNum - 1]["components"]}"
+                console.log components
                 Crafty.c tName,
                     comp: components
                     init: ->
