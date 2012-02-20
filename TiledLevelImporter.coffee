@@ -17,7 +17,6 @@ Crafty.c "TiledLevel",
                     if tsProperties[tNum - 1]
                         if tsProperties[tNum - 1]["components"]
                             components += ", #{tsProperties[tNum - 1]["components"]}"
-                console.log components
                 Crafty.c tName,
                     comp: components
                     init: ->
