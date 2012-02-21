@@ -42,7 +42,7 @@ Crafty.c "TiledLevel",
         return null
 
     tiledLevel : (levelURL, drawType) ->
-        level = $.ajax
+        $.ajax
             type: 'GET'
             url: levelURL
             dataType: 'json'

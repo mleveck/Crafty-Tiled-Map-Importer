@@ -23,7 +23,6 @@
             }
           }
         }
-        console.log(components);
         Crafty.c(tName, {
           comp: components,
           init: function() {
@@ -52,8 +51,7 @@
       return null;
     },
     tiledLevel: function(levelURL, drawType) {
-      var level;
-      level = $.ajax({
+      $.ajax({
         type: 'GET',
         url: levelURL,
         dataType: 'json',
