@@ -2,35 +2,36 @@
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
   Crafty.c("TiledLevel", {
     makeTiles: function(ts, drawType) {
-      var components, posx, posy, sMap, sName, tHeight, tName, tNum, tWidth, tsHeight, tsImage, tsProperties, tsWidth, xCount, yCount;
+      var components, i, posx, posy, sMap, sName, tHeight, tName, tNum, tWidth, tsHeight, tsImage, tsProperties, tsWidth, xCount, yCount, _ref;
       tsImage = ts.image, tNum = ts.firstgid, tsWidth = ts.imagewidth;
       tsHeight = ts.imageheight, tWidth = ts.tilewidth, tHeight = ts.tileheight;
       tsProperties = ts.tileproperties;
       xCount = tsWidth / tWidth | 0;
       yCount = tsHeight / tHeight | 0;
       sMap = {};
-      for (posy = 0; posy < yCount; posy += 1) {
-        for (posx = 0; posx < xCount; posx += 1) {
-          sName = "tileSprite" + tNum;
-          tName = "tile" + tNum;
-          sMap[sName] = [posx, posy];
-          components = "2D, " + drawType + ", " + sName + ", MapTile";
-          if (tsProperties) {
-            if (tsProperties[tNum - 1]) {
-              if (tsProperties[tNum - 1]["components"]) {
-                components += ", " + tsProperties[tNum - 1]["components"];
-              }
+      for (i = 0, _ref = yCount * xCount; i < _ref; i += 1) {
+        posx = i % xCount;
+        posy = i / xCount | 0;
+        sName = "tileSprite" + tNum;
+        tName = "tile" + tNum;
+        sMap[sName] = [posx, posy];
+        components = "2D, " + drawType + ", " + sName + ", MapTile";
+        if (tsProperties) {
+          if (tsProperties[tNum - 1]) {
+            if (tsProperties[tNum - 1]["components"]) {
+              components += ", " + tsProperties[tNum - 1]["components"];
             }
           }
-          Crafty.c(tName, {
-            comp: components,
-            init: function() {
-              this.addComponent(this.comp);
-              return this;
-            }
-          });
-          tNum++;
         }
+        console.log(components);
+        Crafty.c(tName, {
+          comp: components,
+          init: function() {
+            this.addComponent(this.comp);
+            return this;
+          }
+        });
+        tNum++;
       }
       Crafty.sprite(tWidth, tHeight, tsImage, sMap);
       return null;

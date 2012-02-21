@@ -8,23 +8,25 @@ Crafty.c "TiledLevel",
         yCount = tsHeight/tHeight | 0
         sMap = {}
         #Crafty.load [tsImage], ->
-        for posy in [0...yCount] by 1
-            for posx in [0...xCount] by 1
-                sName = "tileSprite#{tNum}"
-                tName = "tile#{tNum}"
-                sMap[sName] = [posx, posy]
-                components = "2D, #{drawType}, #{sName}, MapTile"
-                if tsProperties
-                    if tsProperties[tNum - 1]
-                        if tsProperties[tNum - 1]["components"]
-                            components += ", #{tsProperties[tNum - 1]["components"]}"
-                #console.log components
-                Crafty.c tName,
-                    comp: components
-                    init: ->
-                        @addComponent(@comp)
-                        @
-                tNum++ 
+        for i in [0...yCount * xCount] by 1
+            #console.log _ref
+            posx = i % xCount
+            posy = i / xCount | 0 
+            sName = "tileSprite#{tNum}"
+            tName = "tile#{tNum}"
+            sMap[sName] = [posx, posy]
+            components = "2D, #{drawType}, #{sName}, MapTile"
+            if tsProperties
+                if tsProperties[tNum - 1]
+                    if tsProperties[tNum - 1]["components"]
+                        components += ", #{tsProperties[tNum - 1]["components"]}"
+            #console.log components
+            Crafty.c tName,
+                comp: components
+                init: ->
+                    @addComponent(@comp)
+                    @
+            tNum++ 
         #console.log sMap
         Crafty.sprite(tWidth, tHeight, tsImage, sMap)
         return null
