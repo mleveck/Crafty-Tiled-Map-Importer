@@ -9,7 +9,6 @@
       xCount = tsWidth / tWidth | 0;
       yCount = tsHeight / tHeight | 0;
       sMap = {};
-      Crafty.load([tsImage], function() {});
       for (posy = 0; posy < yCount; posy += 1) {
         for (posx = 0; posx < xCount; posx += 1) {
           sName = "tileSprite" + tNum;
@@ -23,7 +22,6 @@
               }
             }
           }
-          console.log(components);
           Crafty.c(tName, {
             comp: components,
             init: function() {
@@ -53,20 +51,41 @@
       return null;
     },
     tiledLevel: function(levelURL, drawType) {
-      $.getJSON(levelURL, __bind(function(level) {
-        var lLayers, layer, ts, tss, _i, _j, _len, _len2;
-        lLayers = level.layers, tss = level.tilesets;
-        drawType = drawType != null ? drawType : "Canvas";
-        for (_i = 0, _len = tss.length; _i < _len; _i++) {
-          ts = tss[_i];
-          this.makeTiles(ts, drawType);
-        }
-        for (_j = 0, _len2 = lLayers.length; _j < _len2; _j++) {
-          layer = lLayers[_j];
-          this.makeLayer(layer);
-        }
-        return null;
-      }, this));
+      var level;
+      level = $.ajax({
+        type: 'GET',
+        url: levelURL,
+        dataType: 'json',
+        data: {},
+        async: false,
+        success: __bind(function(level) {
+          var lLayers, ts, tsImages, tss;
+          lLayers = level.layers, tss = level.tilesets;
+          drawType = drawType != null ? drawType : "Canvas";
+          tsImages = (function() {
+            var _i, _len, _results;
+            _results = [];
+            for (_i = 0, _len = tss.length; _i < _len; _i++) {
+              ts = tss[_i];
+              _results.push(ts.image);
+            }
+            return _results;
+          })();
+          Crafty.load(tsImages, __bind(function() {
+            var layer, ts, _i, _j, _len, _len2;
+            for (_i = 0, _len = tss.length; _i < _len; _i++) {
+              ts = tss[_i];
+              this.makeTiles(ts, drawType);
+            }
+            for (_j = 0, _len2 = lLayers.length; _j < _len2; _j++) {
+              layer = lLayers[_j];
+              this.makeLayer(layer);
+            }
+            return null;
+          }, this));
+          return null;
+        }, this)
+      });
       return this;
     },
     init: function() {
