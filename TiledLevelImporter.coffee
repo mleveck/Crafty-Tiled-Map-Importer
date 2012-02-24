@@ -37,7 +37,9 @@ Crafty.c "TiledLevel",
         for tDatum, i in lData
             if tDatum
                 tile = Crafty.e "tile#{tDatum}"
-                tile.attr({x: (i % lWidth) * tile.w, y: (i  / lWidth | 0) * tile.h})
+                tile.x = (i % lWidth) * tile.w
+                tile.y = (i / lWidth | 0) * tile.h
+                #tile.attr({x: (i % lWidth) * tile.w, y: (i  / lWidth | 0) * tile.h})
                 #console.log "#{tile.x} #{tile.y}"
         return null
 
