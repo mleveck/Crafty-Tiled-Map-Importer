@@ -1,5 +1,5 @@
 (function() {
-
+  var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
   Crafty.c("TiledLevel", {
     makeTiles: function(ts, drawType) {
       var components, i, posx, posy, sMap, sName, tHeight, tName, tNum, tWidth, tsHeight, tsImage, tsProperties, tsWidth, xCount, yCount, _ref;
@@ -49,14 +49,13 @@
       return null;
     },
     tiledLevel: function(levelURL, drawType) {
-      var _this = this;
       $.ajax({
         type: 'GET',
         url: levelURL,
         dataType: 'json',
         data: {},
         async: false,
-        success: function(level) {
+        success: __bind(function(level) {
           var lLayers, ts, tsImages, tss;
           lLayers = level.layers, tss = level.tilesets;
           drawType = drawType != null ? drawType : "Canvas";
@@ -69,20 +68,21 @@
             }
             return _results;
           })();
-          Crafty.load(tsImages, function() {
+          Crafty.load(tsImages, __bind(function() {
             var layer, ts, _i, _j, _len, _len2;
             for (_i = 0, _len = tss.length; _i < _len; _i++) {
               ts = tss[_i];
-              _this.makeTiles(ts, drawType);
+              this.makeTiles(ts, drawType);
             }
             for (_j = 0, _len2 = lLayers.length; _j < _len2; _j++) {
               layer = lLayers[_j];
-              _this.makeLayer(layer);
+              this.makeLayer(layer);
             }
+            this.trigger("TiledLevelLoaded");
             return null;
-          });
+          }, this));
           return null;
-        }
+        }, this)
       });
       return this;
     },
@@ -90,5 +90,4 @@
       return this;
     }
   });
-
 }).call(this);
