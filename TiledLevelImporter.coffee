@@ -59,7 +59,7 @@ Crafty.c "TiledLevel",
                 Crafty.load tsImages, =>
                     @makeTiles(ts, drawType) for ts in tss
                     @makeLayer(layer) for layer in lLayers
-                    @trigger("TiledLevelLoaded")
+                    @trigger("TiledLevelLoaded", this)
                     return null
                 return null
         return @
