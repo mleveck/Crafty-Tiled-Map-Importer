@@ -5,9 +5,9 @@ This component depends on jQuery to fetch the file.
 
 ## Usage
 
-To load the level:
+To load the level, create a component and pass in the url of the map to load:
 
-```map = Crafty.e("TiledLevel").tiledLevel(level.url)```
+```map = Crafty.e("TiledLevel").tiledLevel(url)```
 
 The level load is asynchronous, so you might want to attach a callback on completion:
 
@@ -15,5 +15,7 @@ The level load is asynchronous, so you might want to attach a callback on comple
 
 The callback is handed the `TiledLevel` component as an argument.
 
-## Tiled Usage
+## Tips for using Tiled
+Export maps from Tiled in the .json format.
+
 To assign components to an entity within the Tiled editor, create a "Tiled Property" called `components`.  The value will be a list of the components you want the entity to have on creation.  (It's probably easiest to simply assign a single unique component, and include any others through the `.requires()` funciton in init.)
