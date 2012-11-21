@@ -80,7 +80,7 @@
               layer = lLayers[_j];
               _this.makeLayer(layer);
             }
-            _this.trigger("TiledLevelLoaded");
+            _this.trigger("TiledLevelLoaded", _this);
             return null;
           });
           return null;
