@@ -34,6 +34,8 @@ Crafty.c "TiledLevel",
     makeLayer : (layer) ->
         #console.log layer
         {data: lData, width: lWidth, height: lHeight} = layer
+        layerDetails = {tiles:[], width:lWidth, height:lHeight}
+
         for tDatum, i in lData
             if tDatum
                 tile = Crafty.e "tile#{tDatum}"
@@ -41,6 +43,7 @@ Crafty.c "TiledLevel",
                 tile.y = (i / lWidth | 0) * tile.h
                 #tile.attr({x: (i % lWidth) * tile.w, y: (i  / lWidth | 0) * tile.h})
                 #console.log "#{tile.x} #{tile.y}"
+                layerDetails.tiles[i] = tile
         return null
 
     tiledLevel : (levelURL, drawType) ->
@@ -63,4 +66,17 @@ Crafty.c "TiledLevel",
                     return null
                 return null
         return @
-    init: -> @
+        
+    getTile: (r,c,l=0)->
+        layer = @_layerArray[l]
+        return null if not layer? or r < 0 or r>=layer.height or c<0 or c>=layer.width
+        tile = layer.tiles[c + r*layer.width]
+        
+        if tile
+            return tile
+        else
+            return undefined
+
+    init: -> 
+        @_layerArray = []
+        @
