@@ -15,6 +15,12 @@ The level load is asynchronous, so you might want to attach a callback on comple
 
 The callback is handed the `TiledLevel` component as an argument.
 
+If you want to retrieve a reference to a particular map tile later:
+
+```map.getTile(row, column, layer)```
+
+If the layer is omitted then layer 0 is assumed.
+
 ## Tips for using Tiled
 Export maps from Tiled in the .json format.
 
