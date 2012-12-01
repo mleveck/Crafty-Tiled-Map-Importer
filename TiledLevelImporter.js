@@ -37,14 +37,20 @@
       return null;
     },
     makeLayer: function(layer) {
-      var i, lData, lHeight, lWidth, tDatum, tile, _i, _len;
+      var i, lData, lHeight, lWidth, layerDetails, tDatum, tile, _i, _len;
       lData = layer.data, lWidth = layer.width, lHeight = layer.height;
+      layerDetails = {
+        tiles: [],
+        width: lWidth,
+        height: lHeight
+      };
       for (i = _i = 0, _len = lData.length; _i < _len; i = ++_i) {
         tDatum = lData[i];
         if (tDatum) {
           tile = Crafty.e("tile" + tDatum);
           tile.x = (i % lWidth) * tile.w;
           tile.y = (i / lWidth | 0) * tile.h;
+          layerDetails.tiles[i] = tile;
         }
       }
       return null;
@@ -88,7 +94,24 @@
       });
       return this;
     },
+    getTile: function(r, c, l) {
+      var layer, tile;
+      if (l == null) {
+        l = 0;
+      }
+      layer = this._layerArray[l];
+      if (!(layer != null) || r < 0 || r >= layer.height || c < 0 || c >= layer.width) {
+        return null;
+      }
+      tile = layer.tiles[c + r * layer.width];
+      if (tile) {
+        return tile;
+      } else {
+        return void 0;
+      }
+    },
     init: function() {
+      this._layerArray = [];
       return this;
     }
   });
