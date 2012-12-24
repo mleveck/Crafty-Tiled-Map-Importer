@@ -44,6 +44,8 @@ Crafty.c "TiledLevel",
                 #tile.attr({x: (i % lWidth) * tile.w, y: (i  / lWidth | 0) * tile.h})
                 #console.log "#{tile.x} #{tile.y}"
                 layerDetails.tiles[i] = tile
+
+        @_layerArray.push(layerDetails)
         return null
 
     tiledLevel : (levelURL, drawType) ->
