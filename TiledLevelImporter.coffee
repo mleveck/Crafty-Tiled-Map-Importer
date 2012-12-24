@@ -31,7 +31,7 @@ Crafty.c "TiledLevel",
         Crafty.sprite(tWidth, tHeight, tsImage, sMap)
         return null
 
-    makeLayer : (layer, layerNum) ->
+    makeLayer : (layer) ->
         #console.log layer
         {data: lData, width: lWidth, height: lHeight} = layer
         layerDetails = {tiles:[], width:lWidth, height:lHeight}
@@ -45,7 +45,7 @@ Crafty.c "TiledLevel",
                 #console.log "#{tile.x} #{tile.y}"
                 layerDetails.tiles[i] = tile
 
-        @_layerArray[layerNum] = layerDetails;
+        @_layerArray.push(layerDetails)
         return null
 
     tiledLevel : (levelURL, drawType) ->
@@ -63,7 +63,7 @@ Crafty.c "TiledLevel",
                     ts.image
                 Crafty.load tsImages, =>
                     @makeTiles(ts, drawType) for ts in tss
-                    @makeLayer(layer, layerNum) for layer, layerNum in lLayers
+                    @makeLayer(layer) for layer in lLayers
                     @trigger("TiledLevelLoaded", this)
                     return null
                 return null

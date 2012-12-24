@@ -36,7 +36,7 @@
       Crafty.sprite(tWidth, tHeight, tsImage, sMap);
       return null;
     },
-    makeLayer: function(layer, layerNum) {
+    makeLayer: function(layer) {
       var i, lData, lHeight, lWidth, layerDetails, tDatum, tile, _i, _len;
       lData = layer.data, lWidth = layer.width, lHeight = layer.height;
       layerDetails = {
@@ -53,7 +53,7 @@
           layerDetails.tiles[i] = tile;
         }
       }
-      this._layerArray[layerNum] = layerDetails;
+      this._layerArray.push(layerDetails);
       return null;
     },
     tiledLevel: function(levelURL, drawType) {
@@ -78,14 +78,14 @@
             return _results;
           })();
           Crafty.load(tsImages, function() {
-            var layer, layerNum, _i, _j, _len, _len1;
+            var layer, _i, _j, _len, _len1;
             for (_i = 0, _len = tss.length; _i < _len; _i++) {
               ts = tss[_i];
               _this.makeTiles(ts, drawType);
             }
-            for (layerNum = _j = 0, _len1 = lLayers.length; _j < _len1; layerNum = ++_j) {
-              layer = lLayers[layerNum];
-              _this.makeLayer(layer, layerNum);
+            for (_j = 0, _len1 = lLayers.length; _j < _len1; _j++) {
+              layer = lLayers[_j];
+              _this.makeLayer(layer);
             }
             _this.trigger("TiledLevelLoaded", _this);
             return null;
